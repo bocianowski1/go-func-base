@@ -2,9 +2,7 @@ package function
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -47,21 +45,4 @@ func MakeHTTPHandler(f HTTPHandler, wp *WorkerPool) http.HandlerFunc {
 			})
 		}
 	}
-}
-
-func PermissionDenied(w http.ResponseWriter) {
-	WriteJSON(w, http.StatusForbidden, HTTPError{
-		StatusCode: http.StatusForbidden,
-		Message:    "Permission denied",
-	})
-}
-
-func getID(r *http.Request) (int, error) {
-	idString := mux.Vars(r)["id"]
-
-	id, err := strconv.Atoi(idString)
-	if err != nil {
-		return id, fmt.Errorf("ID %v incorrect format", idString)
-	}
-	return id, nil
 }

@@ -7,3 +7,10 @@ run: build
 
 test:
 	@go test v ./...
+
+clean:
+	@docker-compose down
+	@rm -rf main
+
+deploy: build
+	@bash ./deploy-func.sh
